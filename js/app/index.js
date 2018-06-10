@@ -34,15 +34,23 @@ document.querySelector('#formulario_teste').addEventListener('submit', function(
 				erro += 1;
 			}
 		}
+
 	}
 	if(erro === 0){
-		console.log(checkName(campos[0].value));
-		checkEmail(campos[1].value);
-		checkCpf(campos[2].value);
-		checkCorDoCarro(campos[3].value);
-		checkTamanhoRoda(campos[5].value);
-		checkTamanhoPneu(campos[6].value);
-		checkObservacoes(campos[7].value);
+		var nome = checkName(campos[0].value);
+		var email = checkEmail(campos[1].value);
+		var capf = checkCpf(campos[2].value);
+		var cor = checkCorDoCarro(campos[3].value);
+		var tamanhoRoda = checkTamanhoRoda(campos[5].value);
+		var tamanhoPneu = checkTamanhoPneu(campos[6].value);
+		var observacoes = checkObservacoes(campos[7].value);
+		campos.forEach(function(campo){
+			campo.value = '';
+			campo.checked = false;
+		});
+		campos_results.forEach(function(campo){
+			campo.textContent = '';
+		});
 	}
 });
 
