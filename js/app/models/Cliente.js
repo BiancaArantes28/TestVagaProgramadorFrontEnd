@@ -31,6 +31,11 @@ class Cliente{
 
 	}
 
+	verificaEmail(email) {
+	    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	    return re.test(String(email).toLowerCase());
+	}
+
 	mascaraCpf(valor){
 		this._cpf = valor.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g,"\$1.\$2.\$3\-\$4");
 	}
@@ -39,7 +44,6 @@ class Cliente{
 		if(re.test(cpf)){
 			return false;
 		}else{
-			//var cpfSemMask = retirarMascara(cpf);
 			var result = this.valida_cpf(cpf);
 			if(result){
 				return true;

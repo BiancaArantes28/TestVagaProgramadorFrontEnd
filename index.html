@@ -18,8 +18,8 @@
             </div>
             <div id="frm_email" class="form-group col-md-6">
                 <label>Email</label>
-                <input type="text" class="form-control" placeholder="Digite seu email">
-                <small></small>
+                <input type="text" class="form-control" id="email" onBlur="checkEmail(this.value)" placeholder="Digite seu email">
+                <small id="result-email"></small>
             </div>
             <div id="frm_cpf" class="form-group col-md-6">
                 <label>CPF</label>

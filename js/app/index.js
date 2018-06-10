@@ -1,6 +1,7 @@
 var cliente = new Cliente();
 var cpfResult = document.getElementById("result-cpf");
 var nomeResult = document.getElementById("result-nome");
+var emailResult = document.getElementById("result-email");
 var cpfCampo = document.querySelector("#cpf");
 
 function checkName(nome){
@@ -10,6 +11,16 @@ function checkName(nome){
 	}else{
 		nomeResult.style.color = 'green';
 		nomeResult.textContent = "Nome inválido";
+	}
+}
+
+function checkEmail(email){
+	if(cliente.verificaEmail(email)){
+		emailResult.style.color = 'green';
+		emailResult.textContent = "Email válido";
+	}else{
+		emailResult.style.color = 'green';
+		emailResult.textContent = "Email inválido";
 	}
 }
 
