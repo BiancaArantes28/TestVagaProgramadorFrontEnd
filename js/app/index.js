@@ -1,52 +1,136 @@
 var cliente = new Cliente();
-var cpfResult = document.getElementById("result-cpf");
-var nomeResult = document.getElementById("result-nome");
-var emailResult = document.getElementById("result-email");
-var cpfCampo = document.querySelector("#cpf");
+var erro = 0;
+
+var campos = [
+	document.querySelector("#nome"),
+	document.querySelector("#email"),
+	document.querySelector("#cpf"),
+	document.querySelector("#cor-do-carro"),
+	document.querySelector("#acessorio"),
+	document.querySelector("#tamanho-roda"),
+	document.querySelector("#tamanho-pneu"),
+	document.querySelector("#observacoes"),
+]
+
+var campos_results = [
+	document.querySelector("#result-nome"),
+	document.querySelector("#result-email"),
+	document.querySelector("#result-cpf"),
+	document.querySelector("#result-cor"),
+	document.querySelector("#result-acessorio"),
+	document.querySelector("#result-tamanho-roda"),
+	document.querySelector("#result-tamanho-pneu"),
+	document.querySelector("#result-observacoes"),
+]
+
+document.querySelector('#formulario_teste').addEventListener('submit', function(event){
+	event.preventDefault();
+	
+	for(var i = 0; i < campos.length; i++){
+		if(campos[i].required){
+			if(campos[i].length === 0){
+				campos_results[i].style.color = 'red';
+				campos_results[i].textContent = "Por favor, preencha este campo!";
+				erro += 1;
+			}
+		}
+	}
+	if(erro === 0){
+		console.log(checkName(campos[0].value));
+		checkEmail(campos[1].value);
+		checkCpf(campos[2].value);
+		checkCorDoCarro(campos[3].value);
+		checkTamanhoRoda(campos[5].value);
+		checkTamanhoPneu(campos[6].value);
+		checkObservacoes(campos[7].value);
+	}
+});
 
 function checkName(nome){
+	campos_results[0].textContent = "";
 	if(cliente.verificaNome(nome)){
-		nomeResult.style.color = 'green';
-		nomeResult.textContent = "Nome válido";
+		campos_results[0].style.color = 'green';
+		campos_results[0].textContent = "Nome válido";
+		var nomeObject = new Object();
+		nomeObject.nome = campos[0].value;
+		return nomeObject;
 	}else{
-		nomeResult.style.color = 'green';
-		nomeResult.textContent = "Nome inválido";
+		campos_results[0].style.color = 'red';
+		campos_results[0].textContent = "Nome inválido";
 	}
 }
 
 function checkEmail(email){
+	campos_results[1].textContent = "";
 	if(cliente.verificaEmail(email)){
-		emailResult.style.color = 'green';
-		emailResult.textContent = "Email válido";
+		campos_results[1].style.color = 'green';
+		campos_results[1].textContent = "Email válido";
+		var emailObject = new Object();
+		emailObject.email = campos[1].value;
+		return emailObject;
 	}else{
-		emailResult.style.color = 'green';
-		emailResult.textContent = "Email inválido";
+		campos_results[1].style.color = 'red';
+		campos_results[1].textContent = "Email inválido";
 	}
 }
 
-function validateCpf(cpf){
+function checkCpf(cpf){
+	campos_results[2].textContent = "";
 		if(cliente.verificaCpf(cpf)){
 			cliente.mascaraCpf(cpf);
-			cpfCampo.value = cliente.cpf;
+			campos[2].value = cliente.cpf;
+
+			campos_results[2].style.color = 'green';
+			campos_results[2].textContent = "CPF válido";
+			var cpfObject = new Object();
+			cpfObject.cpf = campos[2].value;
 		}else{
-			cpfResult.style.color = 'red';
-			cpfResult.textContent = "CPF inválido";
+			campos_results[2].style.color = 'red';
+			campos_results[2].textContent = "CPF inválido";
 		}
 }
 
-function checkCpf(cpf){
-	if(cpfCampo.value.length === 0){
-		cpfResult.textContent = "";
+function checkCorDoCarro(value){
+	if(value.length === 0){
+		campos_results[3].style.color = 'red';
+		campos_results[3].textContent = "Por favor, selecione alguma opção";
 	}else{
-		if(cliente.verificaCpf(cpf)){
-			cliente.mascaraCpf(cpf);
-			cpfCampo.value = cliente.cpf;
-			cpfResult.style.color = 'green';
-			cpfResult.textContent = "CPF válido";
-		}else{
-			cpfResult.style.color = 'red';
-			cpfResult.textContent = "CPF inválido";
-		}
+		corObject = new Object();
+		corObject.cor_do_carro = campos[3].value;
+		return corObject;
+	}
+}
+
+function checkTamanhoRoda(value){
+	if(value.length === 0){
+		campos_results[5].style.color = 'red';
+		campos_results[5].textContent = "Por favor, selecione alguma opção";
+	}else{
+		tamanhoRodaObject = new Object();
+		tamanhoRodaObject.tamanho_roda = campos[5].value;
+		return tamanhoRodaObject;
+	}
+}
+
+function checkTamanhoPneu(value){
+	if(value.length === 0){
+		campos_results[6].style.color = 'red';
+		campos_results[6].textContent = "Por favor, selecione alguma opção";
+	}else{
+		tamanhoPneuObject = new Object();
+		tamanhoPneuObject.tamanho_pneu = campos[6].value;
+		return tamanhoPneuObject;
+	}
+}
+
+function checkObservacoes(value){
+	if(value.length > 600){
+		campos_results[7].style.color = 'red';
+		campos_results[7].textContent = "Número máximo de caracteres excedidos";
+	}else{
+		observacoesObject = new Object();
+		observacoesObject.observacoes = campos[7].value;
+		return observacoesObject;
 	}
 }
 

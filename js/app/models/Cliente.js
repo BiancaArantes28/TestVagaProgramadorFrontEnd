@@ -50,9 +50,7 @@ class Cliente{
 			}else{
 				return false;
 			}
-
 		}
-		// return re.test(cpf)
 	}
 
 	retirarMascara(cpf) {
